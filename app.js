@@ -18,18 +18,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 "code_39_reader",
                 "upc_reader"
             ]
-        }
+        },
+        locator: {
+            patchSize: "medium", // Available options: x-small, small, medium, large, x-large
+            halfSample: true
+        },
+        locate: true, // Try to locate the barcode in the image
     }, function (err) {
         if (err) {
-            console.log(err);
+            console.error("QuaggaJS initialization failed:", err);
             return;
         }
         Quagga.start();
+        console.log("QuaggaJS started successfully.");
     });
 
     // Handle detection and display the result
     Quagga.onDetected(function (data) {
-        const code = data.codeResult.code;
-        document.getElementById('output').textContent = `Scanned Code: ${code}`;
+        if (data && data.codeResult && data.codeResult.code) {
+            const code = data.codeResult.code;
+            document.getElementById('output').textContent = `Scanned Code: ${code}`;
+            console.log("Barcode detected:", code);
+        } else {
+            console.log("Barcode detection failed.");
+        }
+    });
+
+    Quagga.onProcessed(function (result) {
+        if (result) {
+            console.log(result.boxes); // This logs the detected barcode boxes
+        }
     });
 });
