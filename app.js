@@ -10,7 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         decoder: {
-            readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader"] // Add more readers if needed
+            readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "ean_13_reader", // EAN-13 reader added here
+                "code_39_reader",
+                "upc_reader"
+            ]
         }
     }, function (err) {
         if (err) {
@@ -23,6 +30,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle detection and display the result
     Quagga.onDetected(function (data) {
         const code = data.codeResult.code;
-        document.getElementById('output').textContent = `Scanned Code: ${code}`;
-    });
-});
+        document.getElementById('output').textContent = `Scanned Code: ${code
