@@ -30,4 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle detection and display the result
     Quagga.onDetected(function (data) {
         const code = data.codeResult.code;
-        document.getElementById('output').textContent = `Scanned Code: ${code
+        document.getElementById('output').textContent = `Scanned Code: ${code}`;
+    });
+});
